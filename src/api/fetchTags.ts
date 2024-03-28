@@ -1,7 +1,16 @@
-import { IParams, ITagsApiResponse } from "../types/TagsApi";
+import {
+  IParams,
+  ITagsApiErrorResponse,
+  ITagsApiResponse,
+} from "../types/TagsApi";
 
-const fetchTags = ({ pagesize, page, sort, order }: IParams) => {
-  return fetch(
+const fetchTags = async ({
+  pagesize,
+  page,
+  sort,
+  order,
+}: IParams): Promise<ITagsApiResponse> => {
+  const response = await fetch(
     `https://api.stackexchange.com/2.3/tags?site=stackoverflow&` +
       new URLSearchParams({
         pagesize: `${pagesize || 10}`,
@@ -9,7 +18,16 @@ const fetchTags = ({ pagesize, page, sort, order }: IParams) => {
         sort: sort || "popular",
         order: order || "desc",
       })
-  ).then((res) => res.json() as Promise<ITagsApiResponse>);
+  );
+
+  if (!response.ok) {
+    const errorResponse: ITagsApiErrorResponse | any = await response.json();
+    throw new Error(
+      errorResponse?.error_message || "Error while fetching data"
+    );
+  }
+
+  return response.json();
 };
 
 export { fetchTags };
