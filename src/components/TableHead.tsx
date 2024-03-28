@@ -22,9 +22,9 @@ const TableHead = ({ cells, cellToSort }: ITableHeadProps) => {
         <MuiTableHead>
             <TableRow>
                 {cells.map((cell, idx) => (
-                    <TableCell key={idx}>
+                    <TableCell key={idx} align="center" sx={{ fontSize: "1rem" }}>
                         <TableSortLabel active={sort === cellToSort.get(cell)} direction={order} onClick={() => handleSortChange(cell)}>
-                            {cell}
+                            <strong>{cell}</strong>
                         </TableSortLabel>
                     </TableCell>
                 ))}

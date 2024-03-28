@@ -28,10 +28,10 @@ const Table = () => {
                     {data && "items" in data &&
                         data.items.map((item, idx) => (
                             <TableRow key={idx}>
-                                <TableCell>
+                                <TableCell align="center">
                                     {item.name}
                                 </TableCell>
-                                <TableCell>
+                                <TableCell align="center">
                                     {item.count}
                                 </TableCell>
                             </TableRow>
