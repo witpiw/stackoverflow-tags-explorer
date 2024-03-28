@@ -1,7 +1,15 @@
-import { TableContainer, Table as MuiTable, TableHead, TableRow, TableCell, TableBody } from "@mui/material"
+import { TableContainer, Table as MuiTable, TableRow, TableCell, TableBody } from "@mui/material"
 import { useTags } from "../hooks/useTags"
 import { useParametersStore } from "../hooks/useParametersStore"
 import { TableSkeletonLoading } from "./TableSkeletonLoading"
+import { TableHead } from "./TableHead"
+import { IParams } from "../types/TagsApi"
+
+const cells = ["Nazwa tag'u", "Liczba powiązanych postów"]
+const cellToSort = new Map<string, IParams["sort"]>([
+    [cells[0], "name"],
+    [cells[1], "popular"]
+])
 
 const Table = () => {
     const { data, isLoading, error } = useTags()
@@ -12,16 +20,7 @@ const Table = () => {
     return (
         <TableContainer>
             <MuiTable>
-                <TableHead>
-                    <TableRow>
-                        <TableCell>
-                            Nazwa tag'u
-                        </TableCell>
-                        <TableCell>
-                            Liczba powiązanych postów
-                        </TableCell>
-                    </TableRow>
-                </TableHead>
+                <TableHead cells={cells} cellToSort={cellToSort} />
                 <TableBody>
                     {(error || (data && !("items" in data))) && <p>Error</p>}
                     {isLoading && <TableSkeletonLoading rows={pageSize} itemsPerRow={2} />}
