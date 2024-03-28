@@ -1,29 +1,15 @@
-import { useState } from "react"
-import { useQuery } from "@tanstack/react-query"
-import { fetchTags } from "./api/fetchTags"
+import { Table } from "./components/Table"
+import { useParametersStore } from "./hooks/useParametersStore"
 
 function App() {
-  const [pageNumber, setPageNumber] = useState(1)
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ['tags', { pageNumber }],
-    queryFn: () => fetchTags({ page: pageNumber }),
-    staleTime: Infinity
-  })
-
-  if (isLoading) {
-    return <p>Loading...</p>
-  }
-
-  if (isError || !data) {
-    return <p>Something went wrong while fetching data</p>
-  }
+  const { setPage, page } = useParametersStore()
 
   return (
     <>
-      <button onClick={() => setPageNumber(pageNumber - 1)} disabled={pageNumber === 1}>Prev page</button>
-      <div>{pageNumber}</div>
-      <button onClick={() => setPageNumber(pageNumber + 1)} disabled={"items" in data && !data.has_more}>Next page</button>
-      <pre>{JSON.stringify(data, null, "\t")}</pre>
+      <button onClick={() => setPage(page - 1)}>Prev page</button>
+      <div>{page}</div>
+      <button onClick={() => setPage(page + 1)}>Next page</button>
+      <Table />
     </>
 
   )
