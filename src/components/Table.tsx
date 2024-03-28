@@ -5,6 +5,7 @@ import { TableSkeletonLoading } from "./TableSkeletonLoading"
 import { TableHead } from "./TableHead"
 import { IParams } from "../types/TagsApi"
 import { TableFooterPagination } from "./TableFooterPagination"
+import { TablePageSizeControll } from "./TablePageSizeControll"
 
 const cells = ["Nazwa tag'u", "Liczba powiązanych postów"]
 const cellToSort = new Map<string, IParams["sort"]>([
@@ -19,8 +20,9 @@ const Table = () => {
 
 
     return (
-        <TableContainer>
-            <MuiTable>
+        <TableContainer sx={{ maxHeight: "100vh" }}>
+            <TablePageSizeControll />
+            <MuiTable stickyHeader>
                 <TableHead cells={cells} cellToSort={cellToSort} />
                 <TableBody>
                     {error && <p>{error.message}</p>}
