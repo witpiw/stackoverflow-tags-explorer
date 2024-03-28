@@ -6,6 +6,7 @@ import { TableHead } from "./TableHead"
 import { IParams } from "../types/TagsApi"
 import { TableFooterPagination } from "./TableFooterPagination"
 import { TablePageSizeControll } from "./TablePageSizeControll"
+import { TableError } from "./TableError"
 
 const cells = ["Nazwa tag'u", "Liczba powiązanych postów"]
 const cellToSort = new Map<string, IParams["sort"]>([
@@ -25,7 +26,7 @@ const Table = () => {
             <MuiTable stickyHeader>
                 <TableHead cells={cells} cellToSort={cellToSort} />
                 <TableBody>
-                    {error && <p>{error.message}</p>}
+                    {error && <TableError error={error} />}
                     {isLoading && <TableSkeletonLoading rows={pageSize} itemsPerRow={2} />}
                     {data && "items" in data &&
                         data.items.map((item, idx) => (
