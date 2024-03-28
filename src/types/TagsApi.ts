@@ -37,10 +37,10 @@ interface ITagsApiErrorResponse {
 type ITagsApiResponse = ITagsApiSuccessResponse | ITagsApiErrorResponse;
 
 interface IParams {
-  page?: number;
-  pagesize?: number;
-  sort?: "popular" | "activity" | "name";
-  order?: "asc" | "desc";
+  page: number;
+  pagesize: number;
+  sort: "popular" | "activity" | "name";
+  order: "asc" | "desc";
 }
 
 export type {
