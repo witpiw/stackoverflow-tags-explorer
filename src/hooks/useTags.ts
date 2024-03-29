@@ -9,6 +9,7 @@ const useTags = () => {
     queryKey: ["tags", { page, order, sort, pageSize }],
     queryFn: () => fetchTags({ page, order, sort, pagesize: pageSize }),
     staleTime: Infinity,
+    refetchOnWindowFocus: false,
   });
 };
 
