@@ -7,6 +7,7 @@ import { TableFooterPagination } from "./TableFooterPagination"
 import { TablePageSizeControll } from "./TablePageSizeControll"
 import { TableError } from "./TableError"
 import { TableData } from "./TableData"
+import { TableEmptyMessage } from "./TableEmptyMessage"
 
 interface ITableProps {
     data?: ITagsApiResponse
@@ -30,9 +31,15 @@ const Table = ({ data, loading, error }: ITableProps) => {
             <MuiTable stickyHeader>
                 <TableHead cells={cells} cellToSort={cellToSort} />
                 <TableBody>
-                    {error && <TableError error={error} />}
-                    {loading && <TableSkeletonLoading rows={pageSize} itemsPerRow={2} />}
-                    {data && "items" in data && <TableData data={data} />}
+                    {
+                        (() => {
+                            if (error) return <TableError error={error} />
+                            if (loading) return <TableSkeletonLoading rows={pageSize} itemsPerRow={2} />
+                            if (data && "items" in data) return <TableData data={data} />
+
+                            return <TableEmptyMessage message="Brak danych do wyświetlenia" />
+                        })()
+                    }
                 </TableBody>
                 <TableFooterPagination hasMore={!!(data && "items" in data && data.has_more)} />
             </MuiTable>

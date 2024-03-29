@@ -1,5 +1,6 @@
 import { TableCell, TableRow } from "@mui/material"
 import { ITagsApiSuccessResponse } from "../types/TagsApi"
+import { TableEmptyMessage } from "./TableEmptyMessage"
 
 interface ITableDataProps {
     data: ITagsApiSuccessResponse
@@ -8,7 +9,7 @@ interface ITableDataProps {
 const TableData = ({ data }: ITableDataProps) => {
     return (
         <>
-            {!data.items.length && <TableRow><TableCell colSpan={2} align="center">Brak danych do wyświetlenia</TableCell></TableRow>}
+            {!data.items.length && <TableEmptyMessage message="Brak danych do wyświetlenia" />}
             {
                 data.items.map((item, idx) => (
                     <TableRow key={idx}>
