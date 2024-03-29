@@ -3,7 +3,7 @@ import { DebounceInput } from "../components/DebounceInput";
 import { useState } from "react";
 
 const meta = {
-    title: "DebounceInput",
+    title: "Debounce Input",
     component: DebounceInput,
     tags: ["autodocs"],
 } satisfies Meta<typeof DebounceInput>;
